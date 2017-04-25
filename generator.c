@@ -14,13 +14,22 @@ void generator (char *file, int n2){
  	in= open("argv[1]", O_RDONLY);
  	out=open("avg[1]_kopia", O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
 
+//	if(in==NULL){
+//		printf("%s", strerror(errno));
+//		return;
+//	}
+//	if(out==NULL){
+//		printf("%s", strerror(errno));
+//		return;
+//	}
+	
 	for (j=1;j<n2;j++){
 		n1=10+rand()%11;
-//	(unsigned char)F[0]=(unsigned char)n1;
+        F[0]=(unsigned char)n1;
 	 for (i=1;i<n1;i++){
-	   F[i]=rand()%RAND_MAX;
-		 printf("%.3lf\n",	F[i]);
-	 		 buf=((float)rand())/(float)RAND_MAX;
+	   F[i]=rand()%RAND_MAX/1024;
+		 printf("%.2lf\n",	F[i]);
+	 		 buf=((float)rand())/(float)RAND_MAX/1024;
 	  	 		write(out,&buf,1);
 		}
 
@@ -31,10 +40,14 @@ void generator (char *file, int n2){
 
 void analyzator (char *file, int n){
 	char *buf;
-	int i,length=0,pocet=0,suma=1;
+	int i,length=0,pocet=0,suma=1,priemer=0;
 	int in,out,prvok;
 	
 	in= open("argv[1]_kopia", O_RDONLY);
+//	if(in== NULL){
+//		printf("%s", strerror(errno));
+//		return;
+//	}
  	while (read(in,&buf,1)==1)
  	length++;
  	if (sizeof(in)==sizeof(unsigned char))
@@ -43,7 +56,7 @@ void analyzator (char *file, int n){
    	
  	for (i=1;i<length;i++){
  	 prvok=*buf+i;
- 	 suma=+prvok
+ 	 suma=+prvok;
  		if (sizeof(buf)==sizeof(unsigned char)){
 	    priemer=suma/i;
 	    suma=0;
@@ -58,9 +71,10 @@ void analyzator (char *file, int n){
 
 
 int main(int argc, int **argv){
-	char *file = (char *)argv[1];
-//	int n =atoi(int *)(argv[2]);
-	int n=10;
+	srand(time(NULL));
+	char *file =(char *)argv[1];
+//	int n=atoi(argv[2]);
+    int n=10;
 	generator (file,n);
 	analyzator (file,n);
 
