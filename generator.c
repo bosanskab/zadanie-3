@@ -23,7 +23,7 @@ void generator (char *file, int n2){
 	 		 buf=((float)rand())/((float)RAND_MAX/1024);
 	  	 		write(out,&buf,1);
 		}
-
+	write(out,&buf,1);
 	}
 	close(in);
 	close(out);
