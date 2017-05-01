@@ -8,7 +8,7 @@
   
   void analyzator (char *file, int n){
  	char *buf,p[n];
-	int i,length=0,pocet=0,suma=1,priemer=0,m=1;
+	int i,length=0,pocet=0,suma=1,priemer=0,m=1,pocetprvkov=0;
  	int in,out,prvok;
  	
  	in= open("argv[1]_kopia", O_RDONLY);
@@ -16,23 +16,27 @@
   	length++;
   	if (sizeof(in)==sizeof(unsigned char)){
   	scanf("%c",*buf);
-  	*buf=*buf+1;
+  	*buf=*buf+sizeof(unsigned char);
   }
   	else scanf("%lf",*buf);
-
+	*buf=*buf+sizeof(float);
     pocet++;
    	exit(0);
     	
-  	for (i=1;i<length;i++){
+  	for (i=1;i<length*sizeof(float);i=+sizeof(unsigned char)){
   	prvok=*buf+i;
   	printf("postup.: %d",prvok);
  	suma=+prvok;
+ 	pocetprvkov++;
 	if (sizeof(buf)==sizeof(unsigned char)){
 		printf("\n");
- 	    p[m]=suma/m;
+ 	    p[m]=suma/pocetprvkov;
  	    suma=0;
+ 	    pocetprvkov=0;
+ 	    priemer=+p[m];
  	    m++;
  	    	}
+ 	priemer=priemer/m;
  	}
   	printf("celkova dlzka: %d",length);
   	printf("pocet postup.: %d",pocet);
