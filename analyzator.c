@@ -26,17 +26,17 @@
    	exit(0);
     	
   	for (i=1;i<length*sizeof(float);i=+sizeof(unsigned char)){
-  	prvok=*buf+i;
-  	printf("postup.: %d",prvok);
- 	suma=+prvok;
- 	pocetprvkov++;
-	if (sizeof(buf)==sizeof(unsigned char)){
-		printf("\n");
- 	    p[m]=suma/pocetprvkov;
- 	    suma=0;
- 	    pocetprvkov=0;
- 	    priemer=+p[m];
- 	    m++;
+  		prvok=*buf+i;
+  		printf("postup.: %d",prvok);
+ 		suma=+prvok;
+ 		pocetprvkov++;
+		if (sizeof(buf)==sizeof(unsigned char)){
+			printf("\n");
+ 	   		p[m]=suma/pocetprvkov;
+ 	   		suma=0;
+ 	    	pocetprvkov=0;
+ 	    	priemer=+p[m];
+ 	    	m++;
  	    	}
  	priemer=priemer/m;
  	}
