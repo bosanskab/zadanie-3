@@ -13,13 +13,15 @@
  	
  	in= open("argv[1]_kopia", O_RDONLY);
   	while (read(in,&buf,1)==1)
-  	length++;
+  		length++;
+  		
   	if (sizeof(in)==sizeof(unsigned char)){
-  	scanf("%c",*buf);
-  	*buf=*buf+sizeof(unsigned char);
-  }
+  		scanf("%c",*buf);
+  		&buf=&buf+sizeof(unsigned char);
+	}
   	else scanf("%lf",*buf);
-	*buf=*buf+sizeof(float);
+  	
+	&buf=&buf+sizeof(float);
     pocet++;
    	exit(0);
     	
@@ -45,18 +47,17 @@
  	close(in);
  }
  
+ 
  int main(int argc, int **argv){
-	int *memory;
-	char *file =(char *)argv[1];
+	char *file;
 	int n=atoi((const char*)argv[2]);
     
+    file =(char *)argv[1];
 	srand(time(NULL));
-	memory=malloc(20*n*sizeof(float));
-		if (memory==NULL)
+	file=malloc(20*n*sizeof(float));
+		if (file==NULL)
 	  printf("malloc zlyhal\n");
 
 	analyzator (file,n);
-	void free (int *memory){
-		free(memory);
-	}
+	free(file);
 }
