@@ -1,7 +1,7 @@
-#include<string.h>           
-#include<stdio.h>
+#include <string.h>           
+#include <stdio.h>
 #include <time.h>
-#include<stdlib.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -11,7 +11,7 @@ void generator (char *file, int n){
 	float buf;
 	unsigned char dlzka;
 	
- 	out=open("avg[1]_kopia", O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
+ 	out=open(file, O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
  	if(out<0){
 		return 0;
 	}
@@ -47,12 +47,7 @@ int main(int argc, int **argv){
 
 	printf("%c",n);
 	
-	if((malloc(sizeof((char *)argv[1]))) == NULL){
-	return 0;
-	}
-
 	generator (file,n);
-	free(file);
     
     return 0;
 }
