@@ -25,7 +25,7 @@ void jednotlive_postupnosti(int in, POSTUPNOST *p, int i){
 	}
 }
   
-void analyzator (char *file, int n){
+void analyzator (char *file){
  	char buf;
 	int i,j,pocet=0,suma=0,in,size;
  	float *priemer, priemerpriemerov;
@@ -50,10 +50,13 @@ void analyzator (char *file, int n){
 	printf("pocet postuposti: %d",pocet);
 	
  	lseek(in,0,SEEK_SET);
-	p=malloc(pocet*sizeof(POSTUPNOST));
-	priemer=malloc(pocet*sizeof(float));
+	if ((p=malloc(pocet*sizeof(POSTUPNOST)))==NULL)	
+	 	return NULL;;
 	
-	for(i=0; i<n; i++){
+	if ((priemer=malloc(pocet*sizeof(float)))==NULL)
+		return NULL;;
+	
+	for(i=0; i<pocet; i++){
 		jednotlive_postupnosti(in, p, i);
 	}
 	
@@ -67,9 +70,9 @@ void analyzator (char *file, int n){
 	}
 	priemerpriemerov=priemerpriemerov/pocet;
 	
-	printf("Priemer priemerov: %.2lf\n", priemerpriemerov /n);
+	printf("Priemer priemerov: %.2lf\n", priemerpriemerov /pocet);
 	printf("Priemery:\n");
-	for(i=0; i<n; i++){
+	for(i=0; i<pocet; i++){
 		printf("%.2lf\n", priemer[i]);
 	}
   	
@@ -82,7 +85,6 @@ void analyzator (char *file, int n){
  
  int main(int argc, int **argv){
 	char *file;
-	int n;
 	
 	if (argc<3){
 		printf("Malo argumentov");
@@ -90,7 +92,6 @@ void analyzator (char *file, int n){
 	}
 	   		 	  
     file =(char *)argv[1];
-    n=atoi((const char*)argv[2]);
 
-	analyzator (file,n);
+	analyzator (file);
 }
